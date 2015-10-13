@@ -6,7 +6,8 @@
 	"license": "MIT",
 	"main": "./lib/atom-json-editor",
 	"repository": {
-		"type": "git"
+		"type": "git",
+		"url": "https://lhechenberger@bitbucket.org/lhechenberger/atom-json-editor.git"
 	},
 	"dependencies": {},
 	"engines": {
