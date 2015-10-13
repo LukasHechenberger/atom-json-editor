@@ -1,0 +1,83 @@
+{
+	"$schema" : "http://json-schema.org/draft-04/schema#",
+	"title" : "Route Config",
+	"description" : "Project Route",
+	"$ref" : "#/definitions/route",
+
+  "definitions" : {
+    "route" : {
+      "title" : "Route",
+      "type" : "object",
+      "properties" : {
+        "path" : {
+          "title" : "Path",
+          "propertyOrder" : 0,
+          "oneOf" : [
+            { "$ref" : "#/definitions/null" },
+            { "title" : "Not Localized", "type" : "string" },
+            { "$ref" : "#/definitions/localizedString" }
+          ]
+        },
+        "view" : {
+          "title" : "View",
+          "type" : "string",
+          "propertyOrder" : 1
+        },
+        "display" : {
+          "title" : "Display",
+          "type" : "string",
+          "propertyOrder" : 2,
+          "enum" : ["block", "inside", "popover"],
+          "dependencies" : ["view"]
+        },
+        "sub" : {
+          "title" : "Subroutes",
+          "propertyOrder" : 3,
+          "oneOf" : [
+            { "$ref" : "#/definitions/null" },
+            {
+              "title" : "Subroutes",
+              "type" : "array",
+              "minItems" : 1,
+              "items" : { "$ref" : "#/definitions/route" }
+            }
+          ]
+        },
+        "dynamic" : {
+          "title" : "Dynamic Subroute",
+          "propertyOrder" : 4,
+          "oneOf" : [
+            {
+              "$ref" : "#/definitions/null"
+            },
+            {
+              "title" : "Dynamic Subroute",
+              "$ref" : "#/definitions/route"
+            }
+          ]
+        }
+      }
+    },
+
+    "localizedString" : {
+      "title" : "Localized",
+      "type" : "object",
+      "properties" : {
+        "en" : {
+          "title" : "English",
+          "type" : "string"
+        },
+        "de" : {
+          "title" : "Deutsch",
+          "type" : "string"
+        }
+      },
+      "required" : []
+    },
+
+    "null" : {
+      "title" : "none",
+      "type" : "null"
+    }
+  }
+}
