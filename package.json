@@ -1,20 +1,17 @@
 {
-	"name": "atom-json-editor",
-	"version": "0.0.0",
-	"description": "Creates UI for json files created along their schemes",
-	"keywords": [
-		"json",
-		"schema",
-		"editor"
-	],
-	"license": "MIT",
-	"main": "./lib/atom-json-editor",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/LukasHechenberger/atom-json-editor"
-	},
-	"dependencies": {},
-	"engines": {
-		"atom": ">=1.0.0 <2.0.0"
-	}
+  "name": "atom-json-editor",
+  "version": "0.2.0",
+  "description": "Creates UI for json files created along their schemes",
+  "keywords": [
+    "json",
+    "schema",
+    "editor"
+  ],
+  "license": "MIT",
+  "main": "./lib/atom-json-editor",
+  "repository": "https://github.com/LukasHechenberger/atom-json-editor",
+  "dependencies": {},
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
 }
