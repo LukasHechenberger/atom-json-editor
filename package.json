@@ -2,7 +2,11 @@
 	"name": "atom-json-editor",
 	"version": "0.1.0",
 	"description": "Creates UI for json files created along their schemes",
-	"keywords": [],
+	"keywords": [
+		"json",
+		"schema",
+		"editor"
+	],
 	"license": "MIT",
 	"main": "./lib/atom-json-editor",
 	"repository": {
