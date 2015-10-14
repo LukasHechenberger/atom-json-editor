@@ -4,7 +4,7 @@ Creates UI for json files created along their schemes.
 
 **Based on [JSONEditor by Jeremy Dorn](https://github.com/jdorn/json-editor)**
 
-![A screenshot of atom-json-editor](https://bitbucket.org/lhechenberger/grunt-validate-json/downloads/screenshot.png)
+![A screenshot of atom-json-editor](https://raw.githubusercontent.com/LukasHechenberger/atom-json-editor/master/screenshot.png)
 
 ## Usage
 
