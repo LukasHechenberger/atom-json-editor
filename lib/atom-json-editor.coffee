@@ -1,22 +1,26 @@
 AtomJsonEditorView = require './atom-json-editor-view'
 JSONEditor = require './deps/jsoneditor.min.js'
-{CompositeDisposable, File} = require 'atom'
+{CompositeDisposable, File, Directory} = require 'atom'
+
+# Constants
+defaultSchemesDir = 'Package Schemes'
 
 module.exports = AtomJsonEditor =
+  config:
+    schemesDir:
+      title: 'Schemes Directory'
+      type: 'string'
+      description: 'Path to a directory containing JSON schemes'
+      default: defaultSchemesDir
+
+
   atomJsonEditorView: null
   modalPanel: null
-  subscriptions: null
   editor: null
 
   activate: (state) ->
     @atomJsonEditorView = new AtomJsonEditorView(state.atomJsonEditorViewState)
     @modalPanel = atom.workspace.addRightPanel(item: @atomJsonEditorView.getElement(), visible: false)
-
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
-    @subscriptions = new CompositeDisposable
-
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-json-editor:toggle': => @toggle()
 
     # check active file now and on any new opened file
     @checkActiveFile();
@@ -51,17 +55,39 @@ module.exports = AtomJsonEditor =
       if match?
         @startForSchemaWithName match[1]
     catch error
-      console.warn 'Could not get current file path '
+      # Could not get filepath.
+      # Probably Settings is open
 
   startForSchemaWithName: (name) ->
-    file = new File '/Users/lukas/.atom/packages/atom-json-editor/lib/schemes/' + name + '.schema.json'
+    schemaFilename = name + '.schema.json'
+    packageSchemaPath = __dirname + '/schemes/' + schemaFilename
+
+    dir = atom.config.get 'atom-json-editor.schemesDir'
+    if dir == defaultSchemesDir
+      # Try in package scheme dir
+      @startForSchemaAtPath packageSchemaPath
+    else # Check if directory specified in config exists
+      directory = new Directory dir
+      if directory.existsSync()
+        # Try in config dir
+        @startForSchemaAtPath dir + '/' + schemaFilename, packageSchemaPath
+      else
+        atom.notifications.addError dir + 'does not exist',
+          detail: 'Invalid schemes directory'
+
+  startForSchemaAtPath: (path, fallback) ->
+    file = new File path
 
     if file.existsSync()
       (file.read true).then (schemaString) =>
         try
           @start JSON.parse schemaString
         catch error
-          console.warn name + '.schema.json contains no valid JSON', error
+          atom.notifications.addError schemeName + ' is no valid JSON',
+            detail: error
+    else
+      # Failed with the given path, try with fallback if set
+      @startForSchemaAtPath fallback if fallback?
 
   save: ->
     editor = atom.workspace.getActiveTextEditor()
@@ -77,7 +103,8 @@ module.exports = AtomJsonEditor =
       try
         startval = JSON.parse text
       catch error
-        console.warn 'text is no valid JSON'
+        atom.notifications.addWarning 'File contains no valid JSON. Initilized with empty object value',
+          detail: error
 
 
     @editor = new JSONEditor @atomJsonEditorView.editorContainer,
