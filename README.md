@@ -16,7 +16,7 @@ By default, some basic schemes are included with the package. Add your own schem
 
 ### Schemes are picked by name conversion
 
-Any scheme should have the file extension `.scheme.json`. Any `.json` file containing it's filename is validated against it. 
+Any scheme should have the file extension `.schema.json`. Any `.json` file containing it's filename is validated against it. 
 
 As an example `package.json` is validated against `package.scheme.json`. As would `any-prefix.package.json`.
 
