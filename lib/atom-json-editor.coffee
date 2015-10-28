@@ -1,6 +1,7 @@
 AtomJsonEditorView = require './atom-json-editor-view'
 JSONEditor = require './deps/jsoneditor.min.js'
 {CompositeDisposable, File, Directory} = require 'atom'
+ApiPath = require 'path'
 
 # Constants
 defaultSchemesDir = 'Package Schemes'
@@ -53,27 +54,32 @@ module.exports = AtomJsonEditor =
       match = regex.exec path
 
       if match?
-        @startForSchemaWithName match[1]
+        @startForSchemaWithName ApiPath.dirname(path), match[1]
     catch error
       # Could not get filepath.
       # Probably Settings is open
 
-  startForSchemaWithName: (name) ->
+  startForSchemaWithName: (path, name) ->
     schemaFilename = name + '.schema.json'
     packageSchemaPath = __dirname + '/schemes/' + schemaFilename
+    localSchemaPath = ApiPath.join(path, schemaFilename)
 
-    dir = atom.config.get 'atom-json-editor.schemesDir'
-    if dir == defaultSchemesDir
-      # Try in package scheme dir
-      @startForSchemaAtPath packageSchemaPath
-    else # Check if directory specified in config exists
-      directory = new Directory dir
-      if directory.existsSync()
-        # Try in config dir
-        @startForSchemaAtPath dir + '/' + schemaFilename, packageSchemaPath
-      else
-        atom.notifications.addError dir + 'does not exist',
-          detail: 'Invalid schemes directory'
+    localSchema = new File localSchemaPath
+    if localSchema.existsSync()
+      @startForSchemaAtPath localSchemaPath
+    else
+      dir = atom.config.get 'atom-json-editor.schemesDir'
+      if dir == defaultSchemesDir
+        # Try in package scheme dir
+        @startForSchemaAtPath packageSchemaPath
+      else # Check if directory specified in config exists
+        directory = new Directory dir
+        if directory.existsSync()
+          # Try in config dir
+          @startForSchemaAtPath dir + '/' + schemaFilename, packageSchemaPath
+        else
+          atom.notifications.addError dir + 'does not exist',
+            detail: 'Invalid schemes directory'
 
   startForSchemaAtPath: (path, fallback) ->
     file = new File path
