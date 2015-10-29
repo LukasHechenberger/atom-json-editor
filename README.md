@@ -33,7 +33,7 @@ Within the package settings choose atom-json-editor. The only option available b
 
 If a scheme isn't found in your Schemes Directory, atom-json-editor will try to get one from it's package library.
 
-### Adding schemes to the package libarary *(deprecated)*
+### Adding schemes to the package library *(deprecated)*
 
 You can also add schemes directly to the package library by moving them into `~/.atom/packages/atom-json-editor/lib/schemes/`.
 
