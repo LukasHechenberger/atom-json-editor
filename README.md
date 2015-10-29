@@ -18,7 +18,14 @@ By default, some basic schemes are included with the package. Add your own schem
 
 Any scheme should have the file extension `.schema.json`. Any `.json` file containing it's filename is validated against it. 
 
-As an example `package.json` is validated against `package.scheme.json`. As would `any-prefix.package.json`.
+As an example `package.json` is validated against `package.schema.json`. As would `any-prefix.package.json`.
+
+### Using Schemes in your Working Directory
+> Available since 0.4.0, with thanks to [DimShadoWWW](https://github.com/DimShadoWWW)
+
+First of all, atom-json-editor will check if there is a valid `.schema.json`-File inside your current working directory. This means that a File inside `~/anywhere/file.json` will be validated against `~/anywhere/file.schema.json` if available.
+
+If no valid schema is found inside your working directory, atom-json-editor will continue searching in your *Schemes Directory*.
 
 ### Using your own Schemes Directory
 
