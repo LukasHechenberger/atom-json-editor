@@ -38,3 +38,9 @@ If a scheme isn't found in your Schemes Directory, atom-json-editor will try to 
 You can also add schemes directly to the package library by moving them into `~/.atom/packages/atom-json-editor/lib/schemes/`.
 
 **Note that schemes added to the package library may be replaced when updating this package.**
+
+## Known issues
+
+### A JSON file is open while installing the package
+
+If a `JSON` file is open while installing the package, you have to de- and reselect the file's tab to start the editor.
