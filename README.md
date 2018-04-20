@@ -1,5 +1,7 @@
 # atom-json-editor package
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/LukasHechenberger/atom-json-editor.svg)](https://greenkeeper.io/)
+
 Creates UI for json files created along their schemes.
 
 **Based on [JSONEditor by Jeremy Dorn](https://github.com/jdorn/json-editor)**
