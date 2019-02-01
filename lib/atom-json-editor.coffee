@@ -98,7 +98,9 @@ module.exports = AtomJsonEditor =
   save: ->
     editor = atom.workspace.getActiveTextEditor()
     value = @editor.getValue()
-    editor.setText JSON.stringify value, null, '\t'
+
+    indent = if editor.getSoftTabs() then ' '.repeat editor.getTabLength() else '\t'
+    editor.setText JSON.stringify value, null, indent
     editor.save()
 
   start: (schema) ->
