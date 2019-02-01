@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Deploy changes
           command: |
-            if npx @ls-age/bump-version recommend-bump --only needed --exit-codex; then
+            if npx @ls-age/bump-version recommend-bump --only needed --exit-code; then
               echo "release needed"
               echo "git tag created; push to apm next"
             else
