@@ -35,8 +35,8 @@ jobs:
       - run:
           name: Deploy changes
           command: |
-            if npx @ls-age/bump-version recommend-bump --only needed --exit-code --gh-token $GH_TOKEN; then
-              npx @ls-age/bump-version release --release-files []
+            if npx @ls-age/bump-version recommend-bump --only needed --exit-codex; then
+              echo "release needed"
               echo "git tag created; push to apm next"
             else
               echo "no release needed"
