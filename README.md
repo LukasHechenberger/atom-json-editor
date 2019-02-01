@@ -10,13 +10,15 @@ Creates UI for json files created along their schemes.
 
 atom-json-editor tries to build a UI for a file every time you switch to a tab containing a `.json` file. The resulting `JSON` data is automatically saved on change.
 
+Schemes must follow the [json-schema](https://json-schema.org) specs for proper validation.
+
 ## Adding custom schemes
 
 By default, some basic schemes are included with the package. Add your own schemes to build `.json` files in your own format
 
 ### Schemes are picked by name conversion
 
-Any scheme should have the file extension `.schema.json`. Any `.json` file containing it's filename is validated against it. 
+Any scheme should have the file extension `.schema.json`. Any `.json` file containing it's filename is validated against it.
 
 As an example `package.json` is validated against `package.schema.json`. As would `any-prefix.package.json`.
 
