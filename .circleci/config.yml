@@ -41,8 +41,8 @@ jobs:
           command: |
             if npx @ls-age/bump-version recommend-bump --only needed --exit-code; then
               echo "release needed"
-              npx @ls-age/bump-version release --release-files []
-              echo "git tag created; push to apm next"
+              npx @ls-age/bump-version release --release-files [] --gh-token $GH_TOKEN
+              echo "git tag created -> run 'apm publish' next"
             else
               echo "no release needed"
             fi
