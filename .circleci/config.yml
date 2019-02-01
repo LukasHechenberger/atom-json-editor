@@ -36,8 +36,8 @@ jobs:
           name: Deploy changes
           command: |
             if npx @ls-age/bump-version recommend-bump --only needed --exit-code; then
-              echo "release needed"
-              npx @ls-age/bump-version recommend-bump
+              npx @ls-age/bump-version release --release-files []
+              echo "git tag created; push to apm next"
             else
               echo "no release needed"
             fi
