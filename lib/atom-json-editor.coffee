@@ -89,7 +89,7 @@ module.exports = AtomJsonEditor =
         try
           @start JSON.parse schemaString
         catch error
-          atom.notifications.addError schemeName + ' is no valid JSON',
+          atom.notifications.addError "Schema at #{path} contains invalid JSON",
             detail: error
     else
       # Failed with the given path, try with fallback if set
