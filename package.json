@@ -3,6 +3,7 @@
   "version": "0.4.1",
   "description": "Creates UI for json files created along their schemes",
   "license": "MIT",
+  "private": true,
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
@@ -29,5 +30,7 @@
     "editor"
   ],
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@ls-age/bump-version": "^0.1.4"
+  }
 }

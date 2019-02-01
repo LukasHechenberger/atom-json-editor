@@ -1,0 +1,61 @@
+defaults: &defaults
+  docker:
+    - image: circleci/node:10
+
+git-login: &git-login
+  name: Setting up git user
+  command: git config --global user.email ci@ls-age.com && git config --global user.name ls-age
+
+version: 2
+jobs:
+  install-deps:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
+      - run:
+          name: Installing npm dependencies
+          command: npm ci
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - add_ssh_keys
+      - attach_workspace:
+          at: .
+      - run:
+          <<: *git-login
+      - run:
+          name: Deploy changes
+          command: |
+            if npx @ls-age/bump-version recommend-bump --only needed --exit-code; then
+              echo "release needed"
+              npx @ls-age/bump-version release --release-files [] --gh-token $GH_TOKEN
+              echo "git tag created -> run 'apm publish' next"
+            else
+              echo "no release needed"
+            fi
+
+workflows:
+  version: 2
+
+  test-and-deploy:
+    jobs:
+      - install-deps
+      - deploy:
+          requires:
+            - install-deps
+          # filters:
+          #   branches:
+          #     only: master
