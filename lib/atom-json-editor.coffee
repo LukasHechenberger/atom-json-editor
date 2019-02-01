@@ -50,7 +50,7 @@ module.exports = AtomJsonEditor =
 
     try
       path = atom.workspace.getActiveTextEditor().getPath()
-      regex = /([a-z0-9]*).json$/i
+      regex = /([\-\_a-z0-9]*).json$/i
       match = regex.exec path
 
       if match?
