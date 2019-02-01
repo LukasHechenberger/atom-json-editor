@@ -1,3 +1,14 @@
+<a name="0.5.1"></a>
+## 0.5.1 (2019-02-01)
+
+
+### Bug Fixes
+
+* Show notification for invalid schema ([#22](https://github.com/LukasHechenberger/atom-json-editor/issues/22)) ([fd7bd49](https://github.com/LukasHechenberger/atom-json-editor/commits/fd7bd49))
+
+
+
+
 <a name="0.5.0"></a>
 # 0.5.0 (2019-02-01)
 
