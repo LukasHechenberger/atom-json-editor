@@ -116,8 +116,8 @@ module.exports = AtomJsonEditor =
 
 
     @editor = new JSONEditor @atomJsonEditorView.editorContainer,
-      theme: 'bootstrap2'
-      iconlib: 'bootstrap2'
+      theme: 'bootstrap3'
+      iconlib: 'bootstrap3'
       disable_edit_json: true
 #      disable_properties: true
       remove_empty_properties: true
